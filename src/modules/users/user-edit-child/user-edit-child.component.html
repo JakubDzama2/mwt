@@ -1,0 +1,65 @@
+<div class="main-wrapper">
+    <form (ngSubmit)="formSubmit()" [formGroup]="userEditForm">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>User editing</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Ex. Noob" formControlName="name" required>
+                    <mat-error *ngIf="name?.errors?.minlength">Login musí mať aspoň
+                        {{ name.errors.minlength.requiredLength }} znaky. Aktuálne máte
+                        {{ name.errors.minlength.actualLength }}</mat-error>
+                    <!-- <mat-error *ngIf="name?.errors?.required">Login musí byť vyplnený</mat-error> -->
+                    <mat-error *ngIf="name?.errors?.conflictField"> {{ name.errors.conflictField }} </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput placeholder="Ex. Noob@noob.sk" formControlName="email" required>
+                    <mat-error *ngIf="email?.errors?.email || email?.errors?.pattern">Email musí byť v správnom tvare
+                    </mat-error>
+                    <!-- <mat-error *ngIf="email?.errors?.required">Email musí byť vyplnený</mat-error> -->
+                    <mat-error *ngIf="email?.errors?.conflictField"> {{ email.errors.conflictField }} </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input matInput placeholder="Ex. 12345" [type]="hide ? 'password' : 'text'"
+                        formControlName="password">
+                    <button type="button" matSuffix mat-icon-button color="primary" aria-label="Hide password"
+                        (click)="hide = !hide">
+                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" class="password2">
+                    <mat-label>Repeat password</mat-label>
+                    <input matInput placeholder="Ex. 12345" [type]="hide ? 'password' : 'text'"
+                        formControlName="password2">
+                    <button type="button" matSuffix mat-icon-button color="primary" aria-label="Hide password"
+                        (click)="hide = !hide">
+                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                    <mat-error *ngIf="password2?.errors?.differentPasswords"> {{ password2.errors.differentPasswords }}
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <mat-slide-toggle color="primary" formControlName="active">
+                        Active
+                    </mat-slide-toggle>
+                </div>
+                <p>Groups:</p>
+                <div formArrayName="groups">
+                    <mat-checkbox *ngFor="let group of groupsCheckBoxes.controls; let i = index" [formControlName]="i">
+                        {{ groups[i].name }}
+                    </mat-checkbox>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <button type="submit" mat-raised-button color="primary" [disabled]="userEditForm.invalid">SAVE</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

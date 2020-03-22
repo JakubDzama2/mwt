@@ -1,0 +1,22 @@
+<div class="movie_card" id="bright">
+    <div class="info_section">
+        <div class="movie_header">
+            <img class="locandina" src='{{apiResponse.Poster}}' />
+            <h1>{{ film.nazov }}</h1>
+            <h2>{{ film.slovenskyNazov }}</h2>
+            <h4>{{film.rok}}, {{film.reziser | ludiaToString}}</h4>
+            <span class="minutes">{{apiResponse.Runtime}}</span>
+            <p class="type">{{apiResponse.Genre}}</p>
+            <ul>
+                <li><b>Stars</b>: {{film.postava | postavyToString: 'hlavná postava'}}</li>
+                <li><b>Cast</b>: {{film.postava | postavyToString: 'vedľajšia postava'}}</li>
+            </ul>
+        </div>
+        <div class="movie_desc">
+            <p class="text">
+                {{apiResponse.Plot}}
+            </p>
+        </div>
+    </div>
+    <div class="blur_back bright_back"></div>
+</div>

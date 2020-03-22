@@ -1,0 +1,35 @@
+<div class="login-wrapper">
+    <form (ngSubmit)="formSubmit()" #formModel="ngForm">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Login</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Auth: {{ vypisAuth }}</p>
+                <mat-form-field class="example-full-width">
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Ex. Noob" [(ngModel)]="auth.name" name="name" required>
+                    <mat-hint>Váš login</mat-hint>
+                    <mat-error>Login musí byť vyplnený</mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Password</mat-label>
+                    <input 
+                    matInput 
+                    placeholder="Ex. 12345" 
+                    [type]="hide ? 'password' : 'text'" 
+                    [(ngModel)]="auth.password" 
+                    name="password"
+                    required>
+                    <button type="button" matSuffix mat-icon-button color="primary" aria-label="Hide password" (click)="hide = !hide">
+                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button type="submit" mat-raised-button color="primary" [disabled]="formModel.form.invalid">LOGIN</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>
